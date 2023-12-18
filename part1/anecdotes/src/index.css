@@ -45,7 +45,8 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-  margin: 1rem;
+  margin-inline: 0.5rem;
+  margin-bottom: 1.2rem;
 }
 button:hover {
   border-color: #FFA500;
@@ -56,6 +57,10 @@ button:focus-visible {
 }
 
 .anecdote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 50vw;
   min-height: 80vh;
   padding: 2rem;

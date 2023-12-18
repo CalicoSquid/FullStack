@@ -27,13 +27,17 @@ const Anecdote = ({ selected, voteArr, handleGetAnecdote, handleVote }) => {
           </p>
         </>
       )}
+      <div>
       <Button
         name={!selected ? "Get Anecdote" : "New Anecdote"}
         handleClick={handleGetAnecdote}
       />
       {selected !== null && <Button name="Vote" handleClick={handleVote} />}
+      </div>
+      
       {largest > 0 && (
         <div>
+          <hr/>
           <h2 className="header">Most Voted For</h2>
           {anecdotes[index]}
           <p>
