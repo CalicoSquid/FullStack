@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import { anecdotes } from "./anecdotes";
 
 // Header component for the title and feedback prompt
 const Header = () => {
@@ -82,46 +81,6 @@ const MoreStats = ({ average, good, total }) => {
   );
 };
 
-// Anecdote component for displaying a daily anecdote and voting information
-const Anecdote = ({ selected, voteArr, handleGetAnecdote, handleVote }) => {
-  let largest = Math.max(...voteArr);
-  let index = voteArr.indexOf(largest);
-
-  return (
-    <div className="anecdote">
-      {selected !== null && (
-        <>
-        <h2 className="header">Anecdote of the day</h2>
-          <p>
-            <span className="highlight">"</span>
-            {anecdotes[selected]}
-            <span className="highlight">"</span>
-          </p>
-
-          <p>
-            Voted for <span className="highlight">{voteArr[selected]}</span>{" "}
-            times
-          </p>
-        </>
-      )}
-      <Button
-        name={!selected ? "Get Anecdote" : "New Anecdote"}
-        handleClick={handleGetAnecdote}
-      />
-      {selected !== null && <Button name="Vote" handleClick={handleVote} />}
-      {largest > 0 && (
-        <div>
-          <h2 className="header">Most Voted For</h2>
-          {anecdotes[index]}
-          <p>
-            Voted for <span className="highlight">{largest}</span> times
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
 // Main App component
 function App() {
   const [name, setName] = useState("");
@@ -130,8 +89,6 @@ function App() {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [voteArr, setVoteArr] = useState(Array(anecdotes.length).fill(0));
 
   // Function to handle button clicks
   function handleClick(name) {
@@ -153,19 +110,6 @@ function App() {
     }
   }
 
-  // Function to get a random anecdote
-  function handleGetAnecdote() {
-    let randIndex = Math.floor(Math.random() * (anecdotes.length - 1 - 0) + 0);
-    setSelected(randIndex);
-  }
-
-  // Function to handle voting
-  function handleVote() {
-    let copy = [...voteArr];
-    copy[selected] += 1;
-    setVoteArr(copy);
-  }
-
   return (
     <div className="container">
       <Header />
@@ -175,13 +119,6 @@ function App() {
       <Statistics good={good} neutral={neutral} bad={bad} total={total} />
       <MoreStats average={average} good={good} total={total} />
       <Button name="Reset" handleClick={handleClick} />
-      <Anecdote
-        selected={selected}
-        voteArr={voteArr}
-        handleGetAnecdote={handleGetAnecdote}
-        handleVote={handleVote}
-      />
-      
     </div>
   );
 }
