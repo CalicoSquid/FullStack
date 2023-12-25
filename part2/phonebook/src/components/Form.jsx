@@ -8,18 +8,18 @@ export default function Form({name, number, handleChange, handleSubmit}) {
           name="name"
           value={name}
           handleChange={handleChange}
+          className="input"
         />
         <Input
           title="Number"
           name="number"
           value={number}
           handleChange={handleChange}
+          className="input"
         />
-        <div>
           <button type="submit" onClick={(e) => handleSubmit(e)}>
             Add
           </button>
-        </div>
       </form>
   )
 }

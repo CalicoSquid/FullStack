@@ -7,6 +7,7 @@ export default function Input({title, name, value, handleChange}) {
             name={name}
             value={value}
             onChange={(e) => handleChange(e)}
+            className={name}
           />
         </div>
   )
