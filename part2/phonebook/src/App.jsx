@@ -3,18 +3,22 @@ import Input from "./components/Input";
 import List from "./components/List";
 import Form from "./components/Form";
 import apiService from "./services/persons.js";
+import Notifications from "./components/Notifications.jsx";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  const [newPerson, setNewPerson] = useState({name: "", number: ""});
+  const [newPerson, setNewPerson] = useState({ name: "", number: "" });
   const [filter, setFilter] = useState("");
+  const [message, setMessage] = useState({type: "", message: null});
 
   useEffect(() => {
     apiService
       .getPersons()
       .then((data) => setPersons(data))
       .catch((error) => {
-        console.error("Error fetching persons:", error);
+        setMessage({type: "error", message: `"Error fetching persons"`});
+        setTimeout(() => setMessage({type: "", message: null}), 5000);
+
       });
   }, []);
 
@@ -51,6 +55,8 @@ const App = () => {
                   person.id === updatedPerson.id ? updatedPerson : person
                 )
               );
+              setMessage({type: "success", message: `Updated ${name}`});
+              setTimeout(() => setMessage({type: "", message: null}), 5000);
             })
             .catch((error) => console.error("Error updating person:", error));
         }
@@ -62,6 +68,8 @@ const App = () => {
           .then((data) => {
             setPersons((prevPersons) => [...prevPersons, data]);
             setNewPerson({ name: "", number: "" });
+            setMessage({type: "success", message: `Added ${name}`});
+            setTimeout(() => setMessage({type: "", message: null}), 5000);
           })
           .catch((error) => console.error("Error adding person:", error));
       } else {
@@ -70,16 +78,19 @@ const App = () => {
     }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id, name) => {
     apiService
       .deletePerson(id)
       .then(() => {
         setPersons((prevPersons) =>
           prevPersons.filter((person) => person.id !== id)
-        );
+        )
+        setMessage({type: "success", message: `Deleted ${name} from database`});
+        setTimeout(() => setMessage({type: "", message: null}), 5000);
       })
       .catch((error) => {
-        console.error("Error deleting person:", error);
+        setMessage({type: "error", message: `Information of ${name} has already been removed from the server`});
+        setTimeout(() => setMessage({type: "", message: null}), 5000);
       });
   };
 
@@ -91,6 +102,7 @@ const App = () => {
     <div className="container">
       <div className="top">
         <h1>Phonebook</h1>
+        <Notifications message={message} />
         <Input
           title="🔎︎"
           name="filter"
@@ -105,12 +117,11 @@ const App = () => {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <br/>
+      <br />
       <div className="output">
-      <h2>Numbers</h2>
-      <List filteredPersons={filteredPersons} handleDelete={handleDelete} />
+        <h2>Numbers</h2>
+        <List filteredPersons={filteredPersons} handleDelete={handleDelete} />
       </div>
-      
     </div>
   );
 };

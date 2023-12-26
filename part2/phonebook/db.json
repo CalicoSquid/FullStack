@@ -1,14 +1,3 @@
 {
-  "persons": [
-    {
-      "name": "ji7koui",
-      "number": "kikk",
-      "id": 1
-    },
-    {
-      "name": "lpol;op",
-      "number": ";op;op;",
-      "id": 2
-    }
-  ]
+  "persons": []
 }
