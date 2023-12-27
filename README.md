@@ -6,7 +6,7 @@
 
 ### Course Parts
 
-1. **[Part 0: Fundamentals of Web Apps](https://github.com/CalicoSquid/FullStack/tree/main/part0)**
+1. **[Part 0: Fundamentals of Web Apps](https://github.com/CalicoSquid/Fullstack-part0)**
    - **Description:** Understand the basics and fundamentals of web applications.
 
 2. **[Part 1: Introduction to React](https://github.com/CalicoSquid/FullStack/tree/main/part1)**
